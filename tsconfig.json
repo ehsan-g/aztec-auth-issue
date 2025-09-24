@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dest",
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "target": "es2020",
+    "lib": ["esnext", "dom", "es2017.object"],
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "declaration": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "downlevelIteration": true,
+    "inlineSourceMap": true,
+    "declarationMap": true,
+    "importHelpers": true,
+    "resolveJsonModule": true,
+    "composite": true,
+    "skipLibCheck": true
+  },
+  
+  "include": [
+    "src",
+    "scripts/**/*",
+    "src/**/*.json",
+    "src/*.json",
+    "src/artifacts/*",
+    "target/**/*",
+    "packages/token/target/token_contract-Token.json",
+    "packages/factory/target/cloakfinance_factory-FactoryV3.json",
+    "packages/router/target/cloakfinance_factory-RouterV3.json",
+    "packages/token/src/artifacts/Token.ts",
+    "packages/factory/src/artifacts/FactoryV3.ts",
+    "packages/router/src/artifacts/RouterV3.ts",
+    "packages/**/*"
+  ]
+}
