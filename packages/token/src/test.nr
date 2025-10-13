@@ -1,4 +1,3 @@
-
 pub mod access_control;
 pub mod burn_private;
 pub mod burn_public;

@@ -1,15 +1,12 @@
-use dep::aztec::{
-    prelude::AztecAddress,
-    protocol_types::traits::{Deserialize, Packable, Serialize, ToField},
-};
+use dep::aztec::protocol_types::{address::AztecAddress, traits::{Deserialize, Packable, Serialize}};
 use dep::bignum::{BigNum, bignum::to_field, U256};
 
 #[derive(Deserialize, Packable, Serialize)]
 pub struct Pair {
-    token0: AztecAddress,
-    token1: AztecAddress,
-    fee: u32,
-    tickSpacing: i32,
+    pub token0: AztecAddress,
+    pub token1: AztecAddress,
+    pub fee: u32,
+    pub tickSpacing: i32,
 }
 
 impl Pair {

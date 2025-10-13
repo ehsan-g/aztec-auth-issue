@@ -1,14 +1,14 @@
 use crate::RouterV3;
 use crate::test::utils;
-use aztec::authwit::auth::{
-        assert_current_call_valid_authwit, assert_current_call_valid_authwit_public,
-        compute_authwit_nullifier,
-    };
 use dep::aztec::oracle::random::random;
 use dep::factory::FactoryV3;
 use dep::token::Token;
-use aztec::test::helpers::authwit::add_public_authwit_from_call_interface;
+use aztec::authwit::auth::{
+    assert_current_call_valid_authwit, assert_current_call_valid_authwit_public,
+    compute_authwit_nullifier,
+};
 use aztec::test::helpers::authwit::add_private_authwit_from_call_interface;
+use aztec::test::helpers::authwit::add_public_authwit_from_call_interface;
 
 #[test]
 unconstrained fn test_add_liquidity() {
@@ -19,13 +19,10 @@ unconstrained fn test_add_liquidity() {
     let tokenA = token_contract_address_a;
     let tokenB = token_contract_address_b;
     let fee = 500;
-    let tickSpacing = 10; 
     let recipient = recipient;
-    let nonce = 0; 
-    let amount0Desired = 100; 
-    let amount1Desired = 20; 
-
-    env.impersonate(recipient);
+    let nonce = 0;
+    let amount0Desired = 100;
+    let amount1Desired = 20;
 
     println("Preparing Auth");
     // AUTH
@@ -44,12 +41,14 @@ unconstrained fn test_add_liquidity() {
     );
 
     add_public_authwit_from_call_interface(
+        *env,
         recipient, //on behalf
         factoryV3_contract_address, //caller
         public_transfer_in_private_call_interface0,
     );
 
     add_public_authwit_from_call_interface(
+        *env,
         recipient, //on behalf
         factoryV3_contract_address, //caller
         public_transfer_in_private_call_interface1,
@@ -62,6 +61,8 @@ unconstrained fn test_add_liquidity() {
         fee,
         nonce,
         recipient,
+        owner,
+        nonce
     );
     add_private_authwit_from_call_interface(
         recipient,
@@ -69,7 +70,6 @@ unconstrained fn test_add_liquidity() {
         mint_private_call_interface,
     );
 
-    mint_private_call_interface.call(&mut env.private());
-    env.advance_block_by(1);
+    env.call_private(recipient, mint_private_call_interface);
     println("Minted Lp in private");
 }
