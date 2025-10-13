@@ -33,14 +33,14 @@
     "update-readme-version": "node ./.github/scripts/update-readme-version.js"
   },
   "dependencies": {
-    "@aztec/accounts": "0.87.2",
-    "@aztec/aztec": "0.87.2",
-    "@aztec/aztec.js": "0.87.2",
-    "@aztec/noir-contracts.js": "0.87.2",
-    "@aztec/noir-test-contracts.js": "0.87.2",
-    "@aztec/protocol-contracts": "0.87.2",
-    "@aztec/pxe": "0.87.2",
-    "@aztec/stdlib": "0.87.2",
+    "@aztec/accounts": "1.2.0",
+    "@aztec/aztec": "1.2.0",
+    "@aztec/aztec.js": "1.2.0",
+    "@aztec/noir-contracts.js": "1.2.0",
+    "@aztec/noir-test-contracts.js": "1.2.0",
+    "@aztec/protocol-contracts": "1.2.0",
+    "@aztec/pxe": "1.2.0",
+    "@aztec/stdlib": "1.2.0",
     "@types/lodash.chunk": "^4.2.9",
     "@types/node": "^22.5.1"
   },
