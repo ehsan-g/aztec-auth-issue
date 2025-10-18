@@ -29,7 +29,7 @@ pub unconstrained fn setup(
         18,
     );
 
-    let lp_token_contract_address = env.deploy("../token/@token_contract").with_public_initializer(
+    let lp_token_contract_address = env.deploy("../token/@token_contract/Token").with_public_initializer(
         owner,
         initializer_call_interface_lp,
     );
@@ -41,7 +41,7 @@ pub unconstrained fn setup(
         "AA00000000000000000000000000000",
         18,
     );
-    let token_contract_address_a = env.deploy("../token/@token_contract").with_public_initializer(
+    let token_contract_address_a = env.deploy(("../token/@token_contract/Token")).with_public_initializer(
         owner,
         initializer_call_interface_a,
     );
@@ -53,16 +53,16 @@ pub unconstrained fn setup(
         "BB00000000000000000000000000000",
         18,
     );
-    let token_contract_address_b = env.deploy("../token/@token_contract").with_public_initializer(
+    let token_contract_address_b = env.deploy("../token/@token_contract/Token").with_public_initializer(
         owner,
         initializer_call_interface_b,
     );
 
-    // Deploy Factory
+    // // Deploy Factory
     let my_public_initializer_call_interface1 =
         FactoryV3::interface().constructor(owner, lp_token_contract_address, 10);
     let factory_contract_address = env
-        .deploy("../factory/@factory_contract")
+        .deploy("../factory/@factory_contract/FactoryV3")
         .with_public_initializer(owner, my_public_initializer_call_interface1);
 
     // Deploy Router
@@ -76,4 +76,5 @@ pub unconstrained fn setup(
         &mut env, lp_token_contract_address, token_contract_address_a, token_contract_address_b,
         factory_contract_address, router_contract_address, owner, recipient,
     )
+
 }

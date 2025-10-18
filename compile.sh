@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# yarn compile:token
-# wait
+cd packages/token && RUST_BACKTRACE=1 aztec-nargo compile && aztec-postprocess-contract && rm -rf ./codegenCache.json  && aztec codegen target --outdir src/artifacts
+wait
+cd ../../
 
-# yarn compile:factory
-# wait
+cd packages/factory && RUST_BACKTRACE=1 aztec-nargo compile && aztec-postprocess-contract && rm -rf ./codegenCache.json  && aztec codegen target --outdir src/artifacts
+wait
+cd ../../
 
-yarn compile:router
+cd packages/router && RUST_BACKTRACE=1 aztec-nargo compile && aztec-postprocess-contract && rm -rf ./codegenCache.json  && aztec codegen target --outdir src/artifacts
 wait
