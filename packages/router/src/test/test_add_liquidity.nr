@@ -20,7 +20,7 @@ unconstrained fn test_add_liquidity() {
     let tokenB = token_contract_address_b;
     let fee = 500;
     let recipient = recipient;
-    let nonce = 0;
+    let nonce = random();
     let amount0Desired = 100;
     let amount1Desired = 20;
 
@@ -62,7 +62,7 @@ unconstrained fn test_add_liquidity() {
         nonce,
         recipient,
         owner,
-        nonce
+        0
     );
     add_private_authwit_from_call_interface(
         recipient,
