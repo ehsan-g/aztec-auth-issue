@@ -579,5 +579,9 @@ pub contract Token {
     unconstrained fn balance_of_private(owner: AztecAddress) -> u128 {
         storage.balances.at(owner).balance_of()
     }
-    // docs:end:balance_of_private
+
+    #[external("public")]
+    fn get_balance_of_public(owner: AztecAddress) -> pub Field {
+        storage.public_balances.at(owner).read() as Field
+    }
 }

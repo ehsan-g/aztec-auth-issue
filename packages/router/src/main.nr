@@ -6,13 +6,13 @@ use dep::aztec::macros::aztec;
 contract RouterV3 {
     use dep::aztec::{
         context::{PrivateCallInterface, PrivateContext, PublicContext},
-        event::event_interface::{emit_event_in_private, MessageDelivery},
+        event::event_emission::emit_event_in_private,
         macros::{
             events::event,
-            functions::{authorize_once, initializer, internal, private, public, utility, view},
+            functions::{authorize_once, external, initializer, internal, view},
             storage::storage,
         },
-        messages::logs::note::{encode_and_encrypt_note, encode_and_encrypt_note_unconstrained},
+        messages::message_delivery::MessageDelivery,
         state_vars::{Map, PublicImmutable, PublicMutable},
     };
     use dep::aztec::protocol_types::address::AztecAddress;
@@ -29,14 +29,14 @@ contract RouterV3 {
         liquidityToBeMinted: Map<AztecAddress, Map<AztecAddress, Map<u32, Map<AztecAddress, PublicMutable<u128, Context>, Context>, Context>, Context>, Context>, // tokenA => tokenB => fee => user => to be Minted - we add this to help with Gas
     }
 
-    #[public]
+    #[external("public")]
     #[initializer]
     fn constructor(_factory: AztecAddress) {
         storage.factory.write(_factory);
     }
 
     #[authorize_once("from", "authwit_nonce")]
-    #[private]
+    #[external("private")]
     fn _mint_private(
         tokenA: AztecAddress,
         tokenB: AztecAddress,
@@ -51,7 +51,7 @@ contract RouterV3 {
             .enqueue(&mut context);
     }
 
-    #[public]
+    #[external("public")]
     #[internal]
     fn _mint_public(
         tokenA: AztecAddress,

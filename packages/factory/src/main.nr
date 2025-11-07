@@ -5,15 +5,15 @@ use dep::aztec::macros::aztec;
 #[aztec]
 pub contract FactoryV3 {
     use crate::pairV3::Pair;
-    use dep::aztec::{
+     use dep::aztec::{
         context::{PrivateCallInterface, PrivateContext, PublicContext},
-        event::event_interface::{emit_event_in_private, MessageDelivery},
+        event::event_emission::emit_event_in_private,
         macros::{
             events::event,
-            functions::{authorize_once, initializer, internal, private, public, utility, view},
+            functions::{authorize_once, external, initializer, internal, view},
             storage::storage,
         },
-        messages::logs::note::{encode_and_encrypt_note, encode_and_encrypt_note_unconstrained},
+        messages::message_delivery::MessageDelivery,
         state_vars::{Map, PublicImmutable, PublicMutable},
     };
     use dep::aztec::oracle::debug_log::{debug_log, debug_log_format};
@@ -33,19 +33,15 @@ pub contract FactoryV3 {
         approved_lps: Map<AztecAddress, Map<Field, PublicMutable<bool, Context>, Context>, Context>,
     }
 
-    #[public]
+    #[external("public")]
     #[initializer]
-    fn constructor(
-        admin: AztecAddress,
-        lpToken: AztecAddress,
-        lp_contract_id: Field,
-    ) {
+    fn constructor(admin: AztecAddress, lpToken: AztecAddress, lp_contract_id: Field) {
         storage.admin.write(admin);
         storage.approved_lps.at(lpToken).at(lp_contract_id).write(true);
         storage.feeAmountTickSpacing.at(10000).write(200);
     }
 
-    #[public]
+    #[external("public")]
     fn _mint(
         tokenA: AztecAddress,
         tokenB: AztecAddress,

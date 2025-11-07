@@ -65,6 +65,7 @@ unconstrained fn test_add_liquidity() {
         0
     );
     add_private_authwit_from_call_interface(
+        *env,
         recipient,
         routerV3_contract_address,
         mint_private_call_interface,
